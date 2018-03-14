@@ -1,0 +1,2 @@
+#define SquareRoot_VERSION_MAJOR @SquareRoot_VERSION_MAJOR@
+#define SquareRoot_VERSION_MINOR @SquareRoot_VERSION_MINOR@

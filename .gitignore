@@ -1,3 +1,5 @@
 build/
 bin/
-spike/
+CMakeFiles/
+CMakeCache.txt
+*.cmake
