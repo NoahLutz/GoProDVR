@@ -15,8 +15,6 @@ int main(int argc, char* argv[])
 
     WindowController *windowController = new WindowController(player);
     
-    std::cout << "here" << std::endl;
-    printf("%p\n", windowController->getMainWindow());
 
     return app->run(*(windowController->getMainWindow()));
 }

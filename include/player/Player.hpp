@@ -10,10 +10,6 @@
 
 class Player
 {
-    private:
-        libvlc_instance_t *m_vlc_inst;
-        libvlc_media_player_t *m_media_player;
-        libvlc_media_t *m_media;
     public:
         Player(libvlc_instance_t *vlc_inst);
         ~Player();
@@ -26,6 +22,11 @@ class Player
         void play(void);
         void stop(void);
         bool is_playing(void);
+    private:
+        libvlc_instance_t *m_vlc_inst;
+        libvlc_media_player_t *m_media_player;
+        libvlc_media_t *m_media;
 };
 
 #endif
+
