@@ -1,22 +1,20 @@
 #include "gui/WindowController.hpp"
-#include "player/Player.hpp"
 
 WindowController::WindowController(Player *player)
 {
     //Set the player
     m_player = player;
+
     //Create the builder from the glade file
     builder = Gtk::Builder::create_from_file(GLADE_FILE);
     
-    //Set the main window destroy signal
-    //this->getMainWindow()->signal_delete_event().connect(sigc::mem_fun(*this, &WindowController::destroy));
-
     //Get the play/pause button and set the signal handler
     Gtk::Button *playpause_button = nullptr;
     builder->get_widget("playpause_button", playpause_button);
     if(playpause_button)
     {
-        playpause_button->signal_clicked().connect(sigc::mem_fun(*this, &WindowController::on_playpause));
+        m_playpause_button = playpause_button;
+        m_playpause_button->signal_clicked().connect(sigc::mem_fun(*this, &WindowController::on_playpause));
     }
     else
     {
@@ -29,7 +27,8 @@ WindowController::WindowController(Player *player)
     builder->get_widget("stop_button", stop_button);
     if(stop_button)
     {
-        stop_button->signal_clicked().connect(sigc::mem_fun(*this, &WindowController::on_stop));
+        m_stop_button = stop_button;
+        m_stop_button->signal_clicked().connect(sigc::mem_fun(*this, &WindowController::on_stop));
     }
     else
     {
@@ -50,6 +49,18 @@ WindowController::WindowController(Player *player)
         std::cerr << "Failed to find the video player area, please ensure glade file is correct" << std::endl;
     }
 
+    //Get the open dialog button and set the on_open signal handler
+    Gtk::MenuItem *open_source;
+    builder->get_widget("open_stream", open_source);
+    if(open_source)
+    {
+        open_source->signal_activate().connect(sigc::mem_fun(*this, &WindowController::on_open));
+    }
+    else
+    {
+        std::cerr << "Failed to find the Open menu item, please ensure the glade file is in the correct location" << std::endl;
+    }
+
 
 }
 
@@ -67,47 +78,47 @@ Gtk::Window* WindowController::getMainWindow()
 
 void WindowController::player_widget_on_realize()
 {
-    std::cout << "In player widget realize" << std::endl;
     Gtk::Widget *playerWindow = nullptr;
     builder->get_widget("videoPlayer", playerWindow);
 
     m_player->set_media_player_window(playerWindow);
-    std::cout << "after set_window called" << std::endl;
 }
 
 void WindowController::on_open()
 {
     //TODO: show chooser for GoPro
-    
+    URLEntryDialog *dialogWindow = new URLEntryDialog(this, builder);
 }
 
 
 void WindowController::on_playpause()
 {
-    //TODO: pause/play media
-    std::cout << "on_playpause" << std::endl;
     if(m_player->is_playing())
     {
         m_player->pause();
-        //TODO: change button to play
+        m_playpause_button->set_label("gtk-media-play");
     }
     else
     {
         m_player->play();
-        //TODO: change button to pause
+        m_playpause_button->set_label("gtk-media-pause");
     }
 }
 
 void WindowController::on_stop()
 {
-    std::cout << "on_stop()" << std::endl;
+    //pause the media
     m_player->pause();
+
     //Change button to play
+    m_playpause_button->set_label("gtk-media-play");
+
+    //Stop the media
     m_player->stop();
 }
 
-void WindowController::destroy()
+void WindowController::open_media(std::string uri)
 {
-    std::cout << "destroy" << std::endl;
-    gtk_main_quit();
+    m_player->set_media_from_uri(uri.c_str());
+    this->on_playpause();
 }
