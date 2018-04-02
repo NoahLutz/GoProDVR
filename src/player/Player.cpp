@@ -25,6 +25,10 @@ void Player::set_media(libvlc_media_t *media)
 void Player::set_media_from_uri(const char *uri)
 {
     libvlc_media_t *media = libvlc_media_new_location(m_vlc_inst, uri);
+    if(m_media != nullptr)
+    {
+        libvlc_media_release(m_media);
+    }
     this->set_media(media);
 }
 

@@ -4,8 +4,10 @@
 #include "gui/WindowController.hpp"
 #include "player/Player.hpp"
 
+#include <X11/Xlib.h>
 int main(int argc, char* argv[])
 {
+    XInitThreads();
     auto app = Gtk::Application::create(argc, argv, "GoProDVR");
     
     libvlc_instance_t *inst;

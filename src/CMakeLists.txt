@@ -6,7 +6,7 @@ file(GLOB_RECURSE SRCS
 )
 
 add_executable(GoProDVR ${SRCS})
-target_link_libraries(GoProDVR ${GTKMM3_LIBRARIES} ${GTK3_LIBRARIES} ${LIBVLC_LIRBARIES} vlc)
+target_link_libraries(GoProDVR ${GTKMM3_LIBRARIES} ${GTK3_LIBRARIES} ${LIBVLC_LIRBARIES} ${X11_LIBRARIES} vlc)
 
 add_custom_command(
     TARGET GoProDVR
