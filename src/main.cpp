@@ -16,6 +16,12 @@ int main(int argc, char* argv[])
     WindowController *windowController = new WindowController(player);
     
 
-    return app->run(*(windowController->getMainWindow()));
+    int returnCode = app->run(*(windowController->getMainWindow()));
+
+    delete(player);
+
+    libvlc_release(inst);
+
+    return returnCode;
 }
 
