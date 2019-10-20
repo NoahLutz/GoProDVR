@@ -6,6 +6,7 @@
 
 #include "player/Player.hpp"
 #include "gui/URLEntryDialog.hpp"
+#include "gui/SeekBar.hpp"
 
 #define GLADE_FILE "GoProDVR.glade"
 
@@ -17,6 +18,7 @@ class WindowController
         Gtk::Button *m_playpause_button;
         Gtk::Button *m_stop_button;
         Gtk::Button *m_record_button;
+        SeekBar m_seek_bar;
 
         void player_widget_on_realize();
         void on_open();

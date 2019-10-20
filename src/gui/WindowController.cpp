@@ -1,5 +1,16 @@
 #include "gui/WindowController.hpp"
 
+/**********************************************************
+ * Function: 	
+ *
+ * Description: 
+ *
+ * Arguments:	
+ * 				
+ * 
+ * Returns:		
+ *
+**********************************************************/
 WindowController::WindowController(Player *player)
 {
     //Set the player
@@ -60,15 +71,43 @@ WindowController::WindowController(Player *player)
     {
         std::cerr << "Failed to find the Open menu item, please ensure the glade file is in the correct location" << std::endl;
     }
-
-
+    
+    Gtk::Box *mainBox;
+    builder->get_widget("mainBox", mainBox);
+    if(mainBox)
+    {
+        mainBox->pack_start(m_seek_bar, Gtk::PACK_SHRINK);
+        m_seek_bar.show();
+    }
 }
 
+/**********************************************************
+ * Function: 	
+ *
+ * Description: 
+ *
+ * Arguments:	
+ * 				
+ * 
+ * Returns:		
+ *
+**********************************************************/
 WindowController::~WindowController()
 {
     delete(m_player);
 }
 
+/**********************************************************
+ * Function: 	
+ *
+ * Description: 
+ *
+ * Arguments:	
+ * 				
+ * 
+ * Returns:		
+ *
+**********************************************************/
 Gtk::Window* WindowController::getMainWindow()
 {
     Gtk::Window *mainWindow = nullptr;
@@ -76,6 +115,17 @@ Gtk::Window* WindowController::getMainWindow()
     return mainWindow;
 }
 
+/**********************************************************
+ * Function: 	
+ *
+ * Description: 
+ *
+ * Arguments:	
+ * 				
+ * 
+ * Returns:		
+ *
+**********************************************************/
 void WindowController::player_widget_on_realize()
 {
     Gtk::Widget *playerWindow = nullptr;
@@ -84,6 +134,17 @@ void WindowController::player_widget_on_realize()
     m_player->set_media_player_window(playerWindow);
 }
 
+/**********************************************************
+ * Function: 	
+ *
+ * Description: 
+ *
+ * Arguments:	
+ * 				
+ * 
+ * Returns:		
+ *
+**********************************************************/
 void WindowController::on_open()
 {
     //TODO: show chooser for GoPro
@@ -91,6 +152,17 @@ void WindowController::on_open()
 }
 
 
+/**********************************************************
+ * Function: 	
+ *
+ * Description: 
+ *
+ * Arguments:	
+ * 				
+ * 
+ * Returns:		
+ *
+**********************************************************/
 void WindowController::on_playpause()
 {
     if(m_player->is_playing())
@@ -105,6 +177,17 @@ void WindowController::on_playpause()
     }
 }
 
+/**********************************************************
+ * Function: 	
+ *
+ * Description: 
+ *
+ * Arguments:	
+ * 				
+ * 
+ * Returns:		
+ *
+**********************************************************/
 void WindowController::on_stop()
 {
     //pause the media
@@ -117,6 +200,17 @@ void WindowController::on_stop()
     m_player->stop();
 }
 
+/**********************************************************
+ * Function: 	
+ *
+ * Description: 
+ *
+ * Arguments:	
+ * 				
+ * 
+ * Returns:		
+ *
+**********************************************************/
 void WindowController::open_media(std::string uri)
 {
     m_player->set_media_from_uri(uri.c_str());

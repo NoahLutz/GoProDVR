@@ -5,6 +5,18 @@
 #include "player/Player.hpp"
 
 #include <X11/Xlib.h>
+
+/**********************************************************
+ * Function: 	main()
+ *
+ * Description: Starts gtk window and initializes VLC library
+ *
+ * Arguments:	argc - num cmd line arguments
+ * 				argv - cmd line arguments
+ * 
+ * Returns:		application exit code
+ * 
+**********************************************************/
 int main(int argc, char* argv[])
 {
     XInitThreads();

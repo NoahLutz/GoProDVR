@@ -1,5 +1,16 @@
 #include "gui/URLEntryDialog.hpp"
 
+/**********************************************************
+ * Function: 	
+ *
+ * Description: 
+ *
+ * Arguments:	
+ * 				
+ * 
+ * Returns:		
+ *
+**********************************************************/
 URLEntryDialog::URLEntryDialog(WindowController *controller, Glib::RefPtr<Gtk::Builder> builder)
 {
     m_controller = controller;
@@ -46,11 +57,33 @@ URLEntryDialog::URLEntryDialog(WindowController *controller, Glib::RefPtr<Gtk::B
     m_dialog->show();
 }
 
+/**********************************************************
+ * Function: 	
+ *
+ * Description: 
+ *
+ * Arguments:	
+ * 				
+ * 
+ * Returns:		
+ *
+**********************************************************/
 URLEntryDialog::~URLEntryDialog()
 {
 
 }
 
+/**********************************************************
+ * Function: 	
+ *
+ * Description: 
+ *
+ * Arguments:	
+ * 				
+ * 
+ * Returns:		
+ *
+**********************************************************/
 void URLEntryDialog::on_open()
 {
     //Tell the window controller to open the media
@@ -59,6 +92,17 @@ void URLEntryDialog::on_open()
     m_dialog->close();
 }
 
+/**********************************************************
+ * Function: 	
+ *
+ * Description: 
+ *
+ * Arguments:	
+ * 				
+ * 
+ * Returns:		
+ *
+**********************************************************/
 void URLEntryDialog::on_cancel()
 {
     //If the dialog is not null, close the dialog
